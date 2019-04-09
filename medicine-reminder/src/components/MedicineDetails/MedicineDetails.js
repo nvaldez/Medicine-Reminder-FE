@@ -9,7 +9,7 @@ class MedicineDetails extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:8000/medications')
+      .get('http://localhost:8000/medications/1')
       .then(response => {
         this.setState({ medicine: response.data });
       })
@@ -19,13 +19,13 @@ class MedicineDetails extends Component {
   }
 
   render() {
-    const med = this.state.medicine.map(meds => {
-      return <div>{meds.name}</div>;
-    });
+    // const med = this.state.medicine.map(meds => {
+    //   return <div>{meds.name}</div>;
+    // });
     return (
       <div>
         <h1>Med detail</h1>
-        {med}
+        {this.state.medicine.name}
       </div>
     );
   }

@@ -4,8 +4,24 @@ import Header from '../Header/Header';
 import { Route } from 'react-router-dom';
 import MedicineDetails from '../MedicineDetails/MedicineDetails';
 import Home from '../Home/Home';
+const axios = require('axios');
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { medicine: [] };
+  }
+
+  componentDidMount() {
+    axios
+      .get('http://localhost:8000/medications')
+      .then(response => {
+        this.setState({ medicine: response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
   render() {
     console.log(this.state);
     return (

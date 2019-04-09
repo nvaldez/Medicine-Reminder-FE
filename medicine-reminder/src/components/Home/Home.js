@@ -32,6 +32,8 @@ class Home extends Component {
   }
 
   render() {
+    console.log(this.state.props);
+
     const med = this.state.medicine.map((meds, key) => {
       return (
         <div className='home' key={key}>
