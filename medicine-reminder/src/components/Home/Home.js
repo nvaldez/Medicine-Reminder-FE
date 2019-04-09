@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import './Home.css';
+import MedicineDetails from '../MedicineDetails/MedicineDetails';
+import { Route, Link } from 'react-router-dom';
+
 import {
   Card,
-  CardImg,
+  CardHeader,
   CardText,
   CardBody,
-  CardTitle,
-  CardSubtitle,
+  CardDeck,
+  CardFooter,
   Button,
 } from 'reactstrap';
 const axios = require('axios');
@@ -22,7 +25,6 @@ class Home extends Component {
       .get('http://localhost:8000/medications')
       .then(response => {
         this.setState({ medicine: response.data });
-        console.log(response.data);
       })
       .catch(function(error) {
         console.log(error);
@@ -32,22 +34,28 @@ class Home extends Component {
   render() {
     const med = this.state.medicine.map((meds, key) => {
       return (
-        <div key={key}>
+        <div className='home' key={key}>
           <Card className='card'>
+            <CardHeader>
+              <h3>{meds.name}</h3>
+            </CardHeader>
             <CardBody>
-              <CardTitle>
-                <h3>{meds.name}</h3>
-              </CardTitle>
               <CardText>Directions: {meds.directions}</CardText>
               <CardText>Servings: {meds.servings}</CardText>
               <CardText>Refill Left: {meds.refill_left}</CardText>
-              <Button>More Details</Button>
             </CardBody>
+            <CardFooter>
+              <Link to='/medicine-detail'>More Details</Link>
+            </CardFooter>
           </Card>
         </div>
       );
     });
-    return <div>{med}</div>;
+    return (
+      <div>
+        <CardDeck>{med}</CardDeck>
+      </div>
+    );
   }
 }
 
