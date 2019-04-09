@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from '../Header/Header';
 import { Route } from 'react-router-dom';
+import Home from '../Home/Home';
 
 class App extends Component {
-  componentDidMount() {
-    fetch('http://localhost:8000/medications')
-      .then(res => res.json())
-      .then(res => console.log(res));
-  }
   render() {
+    console.log(this.state);
     return (
       <div className='App'>
         <Header />
-        <h1>Hello World</h1>
+        <Route
+          exact
+          path='/'
+          render={props => <Home {...props} {...this.state} />}
+        />
       </div>
     );
   }
